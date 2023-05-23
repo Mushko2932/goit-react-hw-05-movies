@@ -29,11 +29,14 @@ const MovieDetails = () => {
 
   return (
     <>
+      {movie.length > 0 && (
+        <div>
+          {' '}
+          Movie Details {searchMovie.title} {movieId}
+        </div>
+      )}
       {isLoading && <Loader />}
       {error && <p>{error.message}</p>}
-      <div>
-        Movie Details {searchMovie.title} {movieId}
-      </div>
     </>
   );
 };

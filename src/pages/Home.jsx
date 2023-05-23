@@ -25,8 +25,9 @@ const Home = () => {
   }, []);
   return (
     <>
+      {movies.length > 0 && <div>Home</div>}
       {isLoading && <Loader />}
-      <div>Home</div>;
+      {error && <p>{error.message}</p>}
     </>
   );
 };
