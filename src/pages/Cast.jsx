@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { fetchMovieCredits } from 'servises/Api';
 
@@ -22,6 +23,12 @@ const Cast = () => {
     }
     getMovieCredits();
   }, []);
-  return <div>Cast</div>;
+  return (
+    <>
+      {isLoading && <Loader />}
+      {error && <p>{error.message}</p>}
+      <div>Cast</div>
+    </>
+  );
 };
 export default Cast;

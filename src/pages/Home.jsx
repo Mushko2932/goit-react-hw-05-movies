@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { fetchTrendingMovies } from 'servises/Api';
 
@@ -22,6 +23,11 @@ const Home = () => {
     }
     getTrandingMovies();
   }, []);
-  return <div>Home</div>;
+  return (
+    <>
+      {isLoading && <Loader />}
+      <div>Home</div>;
+    </>
+  );
 };
 export default Home;

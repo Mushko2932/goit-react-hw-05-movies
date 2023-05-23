@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'servises/Api';
@@ -27,9 +28,13 @@ const MovieDetails = () => {
   }, []);
 
   return (
-    <div>
-      Movie Details {searchMovie.title} {movieId}
-    </div>
+    <>
+      {isLoading && <Loader />}
+      {error && <p>{error.message}</p>}
+      <div>
+        Movie Details {searchMovie.title} {movieId}
+      </div>
+    </>
   );
 };
 export default MovieDetails;

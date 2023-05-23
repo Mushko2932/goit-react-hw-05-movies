@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { fetchMovieReviews } from 'servises/Api';
 
@@ -22,6 +23,12 @@ const Reviews = () => {
     }
     getMovieReviews();
   }, []);
-  return <div>Reviews</div>;
+  return (
+    <>
+      {isLoading && <Loader />}
+      {error && <p>{error.message}</p>}
+      <div>Reviews</div>
+    </>
+  );
 };
 export default Reviews;

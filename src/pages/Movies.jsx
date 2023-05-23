@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { fetchSearchMovie } from 'servises/Api';
 
@@ -22,7 +23,13 @@ const Movies = () => {
     }
     getSearchMovie();
   }, []);
-  return <div>Movies</div>;
+  return (
+    <>
+      {isLoading && <Loader />}
+      {error && <p>{error.message}</p>}
+      <div>Movies</div>
+    </>
+  );
 };
 
 export default Movies;
