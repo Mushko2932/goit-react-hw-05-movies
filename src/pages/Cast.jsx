@@ -25,9 +25,9 @@ const Cast = () => {
   }, []);
   return (
     <>
+      {movie.length > 0 && <div>Cast</div>}
       {isLoading && <Loader />}
       {error && <p>{error.message}</p>}
-      <div>Cast</div>
     </>
   );
 };

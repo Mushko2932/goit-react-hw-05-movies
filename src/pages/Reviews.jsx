@@ -25,6 +25,7 @@ const Reviews = () => {
   }, []);
   return (
     <>
+      {movie.length > 0 && <div>Reviews</div>}
       {isLoading && <Loader />}
       {error && <p>{error.message}</p>}
       <div>Reviews</div>
