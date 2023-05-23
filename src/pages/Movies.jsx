@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { fetchMovie } from 'servises/Api';
+import { fetchSearchMovie } from 'servises/Api';
 
 const Movies = () => {
-  const [movies, setMovies] = useState([]);
+  const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    async function getMovie() {
+    async function getSearchMovie() {
       try {
         setIsLoading(true);
         setError(false);
-        const fetchedMovies = await fetchMovie();
-        setMovies(prevState => [...prevState, ...fetchedMovies.results]);
+        const fetchedMovie = await fetchSearchMovie();
+        setMovie(prevState => [...prevState, ...fetchedMovie.results]);
       } catch (error) {
         console.log('error :>> ', error);
         setError(true);
@@ -20,7 +20,7 @@ const Movies = () => {
         setIsLoading(false);
       }
     }
-    getMovie();
+    getSearchMovie();
   }, []);
   return <div>Movies</div>;
 };

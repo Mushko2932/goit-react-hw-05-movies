@@ -3,6 +3,8 @@ import MovieDetails from 'pages/MovieDetails';
 import Movies from 'pages/Movies';
 import { Link, Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
+import Reviews from 'pages/Reviews';
+import Cast from 'pages/Cast';
 
 export const App = () => {
   return (
@@ -15,13 +17,15 @@ export const App = () => {
           <Link to="/movies">Movies</Link>
         </li>
         <li>
-          <Link to="/movieDetails">MovieDetails</Link>
+          <Link to="/movies/:movieId">MovieDetails</Link>
         </li>
       </ul>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
-        <Route path="/movieDetails/:movieId" element={<MovieDetails />} />
+        <Route path="/movies/:movieId" element={<MovieDetails />} />
+        <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+        <Route path="/movies/:movieId/cast" element={<Cast />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
