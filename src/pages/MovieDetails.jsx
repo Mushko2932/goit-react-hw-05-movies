@@ -1,27 +1,24 @@
 import { Loader } from 'components/Loader/Loader';
 import MovieCard from 'components/MovieCard/MovieCard';
-import { Suspense, useEffect, useRef, useState } from 'react';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'servises/Api';
 
 const MovieDetails = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const movieId = searchParams.get('movieId') ?? '';
-
-  const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+  const { movieId } = useParams();
 
   const searchMovie = fetchMovieDetails(movieId);
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     async function getMovieDetails() {
       try {
         setIsLoading(true);
         setError(false);
-        const fetchedMovieDetails = await fetchMovieDetails();
+        const fetchedMovieDetails = await fetchMovieDetails(movieId);
         setMovie(prevState => [...prevState, ...fetchedMovieDetails.results]);
       } catch (error) {
         console.log('error :>> ', error);
@@ -31,16 +28,12 @@ const MovieDetails = () => {
       }
     }
     getMovieDetails();
-  }, []);
+  }, [movieId]);
 
   return (
     <>
-      <input
-        type="text"
-        value={movieId}
-        onChange={e => setSearchParams({ movieId: e.target.value })}
-      />
-      <button onClick={() => setSearchParams()}>Search</button>
+      <Link to={location.state?.from ?? '/'}>Go home</Link>
+
       {movie.length > 0 && (
         <div>
           {' '}
@@ -49,7 +42,7 @@ const MovieDetails = () => {
       )}
       {isLoading && <Loader />}
       {error && <p>{error.message}</p>}
-      <MovieCard />
+      {movie && <MovieCard movie={movie} />}
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
