@@ -1,10 +1,16 @@
 import { Loader } from 'components/Loader/Loader';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import MovieCard from 'components/MovieCard/MovieCard';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'servises/Api';
 
 const MovieDetails = () => {
-  const { movieId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieId = searchParams.get('movieId') ?? '';
+
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+
   const searchMovie = fetchMovieDetails(movieId);
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +35,12 @@ const MovieDetails = () => {
 
   return (
     <>
+      <input
+        type="text"
+        value={movieId}
+        onChange={e => setSearchParams({ movieId: e.target.value })}
+      />
+      <button onClick={() => setSearchParams()}>Search</button>
       {movie.length > 0 && (
         <div>
           {' '}
@@ -37,6 +49,10 @@ const MovieDetails = () => {
       )}
       {isLoading && <Loader />}
       {error && <p>{error.message}</p>}
+      <MovieCard />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
