@@ -1,22 +1,15 @@
-import PropTypes from 'prop-types';
-import Notiflix from 'notiflix';
 import { useState } from 'react';
 
-const SearchMovies = ({ query, onSubmit }) => {
-  const [searchFilm, setSearchFilm] = useState(query);
+const SearchMovies = ({ setSearchParams }) => {
+  const [query, setQuery] = useState('');
 
-  const handleSearchFilm = e => {
-    setSearchFilm(e.target.value.toLowerCase());
+  const handleSearchFilm = ({ target: { value } }) => {
+    setQuery(value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (searchFilm === '') {
-      Notiflix.Notify.warning('Please enter text for search');
-      return;
-    }
-    onSubmit(searchFilm);
-    setSearchFilm('');
+    setSearchParams({ query });
   };
 
   return (
@@ -24,16 +17,14 @@ const SearchMovies = ({ query, onSubmit }) => {
       <input
         type="text"
         name="searchFilm"
-        value={searchFilm}
+        autoFocus
+        value={query}
         onChange={handleSearchFilm}
       />
-      <button type="submit">Search</button>
+      <button type="submit" disabled={!query}>
+        Search
+      </button>
     </form>
   );
 };
 export default SearchMovies;
-
-SearchMovies.propTypes = {
-  query: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};

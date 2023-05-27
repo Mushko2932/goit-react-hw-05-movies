@@ -27,7 +27,7 @@ const Movies = () => {
     <main>
       <h2>Movies</h2>
       <SearchMovies setSearchParams={setSearchParams} />
-      {movies.length > 0 && <MovieList />}
+      {movies.length > 0 && <MovieList movies={movies} />}
     </main>
   );
 };

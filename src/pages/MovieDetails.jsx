@@ -6,25 +6,17 @@ import { fetchMovieDetails } from 'servises/Api';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-
-  const searchMovie = fetchMovieDetails(movieId);
   const [movie, setMovie] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
   const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/movies';
 
   useEffect(() => {
     async function getMovieDetails() {
       try {
-        setIsLoading(true);
-        setError(false);
         const fetchedMovieDetails = await fetchMovieDetails(movieId);
-        setMovie(prevState => [...prevState, ...fetchedMovieDetails.results]);
+        setMovie(fetchedMovieDetails);
       } catch (error) {
         console.log('error :>> ', error);
-        setError(true);
-      } finally {
-        setIsLoading(false);
       }
     }
     getMovieDetails();
@@ -32,16 +24,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link to={location.state?.from ?? '/'}>Go home</Link>
-
-      {movie.length > 0 && (
-        <div>
-          {' '}
-          Movie Details {searchMovie.title} {movieId}
-        </div>
-      )}
-      {isLoading && <Loader />}
-      {error && <p>{error.message}</p>}
+      <Link to={backLinkHref}>Go back</Link>
       {movie && <MovieCard movie={movie} />}
       <Suspense fallback={<Loader />}>
         <Outlet />

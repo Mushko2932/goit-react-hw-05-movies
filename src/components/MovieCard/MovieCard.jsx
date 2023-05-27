@@ -25,9 +25,5 @@ const MovieCard = ({ movie: { poster_path, title, overview } }) => {
 export default MovieCard;
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    poster_path: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    overview: PropTypes.string.isRequired,
-  }).isRequired,
+  movie: PropTypes.shape().isRequired,
 };
