@@ -1,34 +1,34 @@
-import { Loader } from 'components/Loader/Loader';
+import MovieList from 'components/MovieList/MovieList';
+import SearchMovies from 'components/SearchMovies/SearchMovies';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchSearchMovie } from 'servises/Api';
 
 const Movies = () => {
-  const [movie, setMovie] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [movies, setMovie] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    const searchQuery = searchParams.get('searchQuery');
+    if (!searchQuery) return;
+
     async function getSearchMovie() {
       try {
-        setIsLoading(true);
-        setError(false);
-        const fetchedMovie = await fetchSearchMovie();
-        setMovie(prevState => [...prevState, ...fetchedMovie.results]);
+        const searchMovie = await fetchSearchMovie(searchQuery);
+        setMovie(searchMovie);
       } catch (error) {
         console.log('error :>> ', error);
-        setError(true);
-      } finally {
-        setIsLoading(false);
       }
     }
     getSearchMovie();
-  }, []);
+  }, [searchParams]);
+
   return (
-    <>
-      {movie.length >= 0 && <div>Movies</div>}
-      {isLoading && <Loader />}
-      {error && <p>{error.message}</p>}
-    </>
+    <main>
+      <h2>Movies</h2>
+      <SearchMovies setSearchParams={setSearchParams} />
+      {movies.length > 0 && <MovieList />}
+    </main>
   );
 };
 
