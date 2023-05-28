@@ -1,7 +1,7 @@
-import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits } from 'servises/Api';
+import { CastList, CastListItem, Actor } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -22,13 +22,13 @@ const Cast = () => {
   return (
     <>
       {
-        <ul>
-          {cast.map(({ id, poster_path, original_name, character }) => (
-            <li key={id}>
+        <CastList>
+          {cast.map(({ id, profile_path, original_name, character }) => (
+            <CastListItem key={id}>
               <img
                 src={
-                  poster_path ? (
-                    `https://image.tmdb.org/t/p/original${poster_path}`
+                  profile_path ? (
+                    `https://image.tmdb.org/t/p/original${profile_path}`
                   ) : (
                     <div>No movie</div>
                   )
@@ -36,14 +36,14 @@ const Cast = () => {
                 alt={original_name}
               />
               <p>
-                <span> Actor:</span> {original_name}
+                <Actor> Actor:</Actor> {original_name}
               </p>
               <p>
-                <span>Character:</span> {character}
+                <Actor>Character:</Actor> {character}
               </p>
-            </li>
+            </CastListItem>
           ))}
-        </ul>
+        </CastList>
       }
     </>
   );

@@ -1,7 +1,16 @@
 import { Loader } from 'components/Loader/Loader';
 import { Suspense, useEffect, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'servises/Api';
+import {
+  Link,
+  AdditionalList,
+  AdditionalListItem,
+  AdditonalContainer,
+  GenresList,
+  MovieContainer,
+  NavLink,
+} from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -24,8 +33,7 @@ const MovieDetails = () => {
   return (
     <>
       <Link to={backLinkHref}>Go back</Link>
-      {/* {movie && <MovieCard movie={movie} />} */}
-      <div>
+      <MovieContainer>
         <img
           src={`${
             movie.poster_path ? (
@@ -43,31 +51,31 @@ const MovieDetails = () => {
           <h3>Overview</h3>
           <p>{movie.overview}</p>
           <h3>Genres</h3>
-          <ul>
+          <GenresList>
             {movie.genres?.map(genre => (
               <li key={genre.id}>{genre.name}</li>
             ))}
-          </ul>
+          </GenresList>
         </div>
-      </div>
-      <div>
+      </MovieContainer>
+      <AdditonalContainer>
         <h2>Additional information</h2>
-        <ul>
+        <AdditionalList>
+          <AdditionalListItem>
+            <NavLink to="cast" state={location.state}>
+              Cast
+            </NavLink>
+          </AdditionalListItem>
           <li>
-            <Link to="cast" state={location.state}>
-              Cast<span>.</span>
-            </Link>
+            <NavLink to="reviews" state={location.state}>
+              Reviews
+            </NavLink>
           </li>
-          <li>
-            <Link to="reviews" state={location.state}>
-              Reviews<span>.</span>
-            </Link>
-          </li>
-        </ul>
+        </AdditionalList>
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-      </div>
+      </AdditonalContainer>
     </>
   );
 };
