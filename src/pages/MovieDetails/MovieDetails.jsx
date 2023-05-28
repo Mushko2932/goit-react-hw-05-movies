@@ -39,14 +39,14 @@ const MovieDetails = () => {
             movie.poster_path ? (
               `https://image.tmdb.org/t/p/original${movie.poster_path}`
             ) : (
-              <div>{movie.original_title}</div>
+              <div>No movie</div>
             )
           }`}
           alt={movie.original_title}
           width="380"
         />
         <div>
-          <h2>{movie.original_title}</h2>
+          <h2>{movie.title}</h2>
           <h3>Rating: {Math.round(movie.vote_average)}</h3>
           <h3>Overview</h3>
           <p>{movie.overview}</p>

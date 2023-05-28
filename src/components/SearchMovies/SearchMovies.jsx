@@ -1,30 +1,33 @@
 import { useState } from 'react';
+import { SearchBtn, SearchForm, SearchInput } from './SearchMovies.styled';
 
 const SearchMovies = ({ setSearchParams }) => {
   const [query, setQuery] = useState('');
-
-  const handleSearchFilm = ({ target: { value } }) => {
-    setQuery(value);
-  };
 
   const handleSubmit = e => {
     e.preventDefault();
     setSearchParams({ query });
   };
 
+  const handleSearchFilm = ({ target: { value } }) => {
+    setQuery(value);
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="searchFilm"
-        autoFocus
-        value={query}
-        onChange={handleSearchFilm}
-      />
-      <button type="submit" disabled={!query}>
-        Search
-      </button>
-    </form>
+    <>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchInput
+          type="text"
+          name="searchFilm"
+          autoFocus
+          value={query}
+          onChange={handleSearchFilm}
+        />
+        <SearchBtn type="submit" disabled={!query}>
+          Search
+        </SearchBtn>
+      </SearchForm>
+    </>
   );
 };
 export default SearchMovies;

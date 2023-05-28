@@ -22,6 +22,10 @@ export const NavList = styled.ul`
   list-style: none;
 `;
 
+export const NavListItem = styled.li`
+  padding: 10px;
+`;
+
 export const Link = styled(LinkStyled)`
   padding: 10px;
   color: #000000;
@@ -31,13 +35,14 @@ export const Link = styled(LinkStyled)`
   font-weight: bold;
 
   &.active {
-    color: #19a7ce;
+    color: #ffffff;
+    background-color: #19a7ce;
   }
 `;
 
 export const Main = styled.main`
   padding-top: 20px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 40px;
+  padding-right: 40px;
   padding-bottom: 20px;
 `;

@@ -1,7 +1,13 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Loader } from 'components/Loader/Loader';
-import { Header, NavList, Link, Main } from './SharedLayout.styled';
+import {
+  Header,
+  NavList,
+  NavListItem,
+  Link,
+  Main,
+} from './SharedLayout.styled';
 
 const SharedLayout = () => {
   return (
@@ -9,12 +15,12 @@ const SharedLayout = () => {
       <Header>
         <nav>
           <NavList>
-            <li>
+            <NavListItem>
               <Link to="/">Home</Link>
-            </li>
-            <li>
+            </NavListItem>
+            <NavListItem>
               <Link to="/movies">Movies</Link>
-            </li>
+            </NavListItem>
           </NavList>
         </nav>
       </Header>
