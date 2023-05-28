@@ -1,6 +1,6 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { FilmsList } from './MovieList.styled';
+import { FilmsList, Link } from './MovieList.styled';
 
 const MovieList = ({ movies }) => {
   const location = useLocation();

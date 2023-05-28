@@ -9,7 +9,7 @@ const Cast = () => {
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    const fetchCast = async () => {
+    const getCast = async () => {
       try {
         const cast = await fetchMovieCredits(movieId);
         setCast(cast);
@@ -17,7 +17,7 @@ const Cast = () => {
         console.log('error :>> ', error);
       }
     };
-    fetchCast();
+    getCast();
   }, [movieId]);
   return (
     <>
@@ -30,7 +30,7 @@ const Cast = () => {
                   profile_path ? (
                     `https://image.tmdb.org/t/p/original${profile_path}`
                   ) : (
-                    <div>No movie</div>
+                    <div>No cast</div>
                   )
                 }
                 alt={original_name}

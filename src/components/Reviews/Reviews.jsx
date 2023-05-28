@@ -19,7 +19,7 @@ const Reviews = () => {
     getMovieReviews();
   }, [movieId]);
   return reviews.length === 0 ? (
-    <h2>No Reviews</h2>
+    <div>No Reviews</div>
   ) : (
     <ReviewsList>
       {reviews.map(({ id, author, content }) => (

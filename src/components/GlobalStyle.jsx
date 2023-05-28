@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   color: #212121;
   background-color: #DDE6ED;
-  padding: 40px;
+  padding: 0;
   }
 
   img {
